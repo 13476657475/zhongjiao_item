@@ -1,0 +1,98 @@
+#dredging-wrap {
+    width: 100%;
+    height: 100%;
+    // min-height: 100vh;
+    overflow: hidden;
+    .onloading{
+        position: fixed;
+        top: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: rgba(1, 1, 1, 0);
+        >div{
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 160px;
+            height: 160px;
+            z-index: 10000;
+            text-align: center;
+            img{
+                width: 60px;
+                height: 60px;
+            }
+            color: #1890ff;
+        }
+        
+    }
+    .dredging-header{
+        position: fixed;
+        top: 0;
+        z-index: 666;
+        width: 100%;
+        height: 50px;
+        background-color: #191d24;
+        border-bottom: 1px solid rgba(255, 255, 255, .13);
+
+        .header-title {
+            position: absolute;
+            height: 50px;
+            line-height: 50px;
+            float: left;
+            margin-left: 24px;
+            
+            >img {
+                margin-right: 10px;
+                content:url(./img/中交流浚2_03.jpg);
+            }
+            >span{
+                color: #fff;
+                margin: 0 10px;
+            }
+            >select{
+                color: #fff;
+                background-color: #666;
+                padding: 0 10px;
+                width: 200px;
+                border-radius: 6px;
+                option{
+                    outline: none;
+                    border: none;
+                    -webkit-appearance: none;
+                    -moz-appearance: none;
+                    -ms-appearance: none;
+                    -o-appearance: none;
+                        appearance: none;
+                }
+                
+            }
+            
+            #file_tran{
+                background-color: #000;
+                color: #fff;
+                border: none;
+                margin: 0 20px;
+            }
+        }
+
+        .header-menu {
+            height: 50px;
+            line-height: 50px;
+            margin: 0 auto;
+            text-align: center;
+
+            color: rgba(255, 255, 255, .5);
+
+            .header-submenu{
+                height: 100%;
+                display: inline-block;
+                box-sizing: border-box;
+                margin-right: 60px;
+                cursor: pointer;
+                color: #fff;
+            }
+        }
+
+    }
+}

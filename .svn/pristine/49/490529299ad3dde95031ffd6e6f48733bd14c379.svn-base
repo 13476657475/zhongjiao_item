@@ -1,0 +1,155 @@
+import React, {Component} from 'react';
+import {connect} from 'react-redux';
+import store from '../../../redux/store';
+import './less/toolCol1.less'
+import {updateDraught, setShipRotation, setShipPosition} from '../../main/3d/ship';
+
+class ToolCol1 extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            waterDepthFileName: [],
+            WaterDepthRealFileName: [],
+            solumFileName: [],
+            mount: null,
+            watch_btn: 1,
+        };
+    }
+
+    // 速度
+    shipSpeed = (e, idx) => {
+        let pageInfo = this.props.scenePageInfo;
+        if (idx === 1) {
+            pageInfo.speed = Number(this.props.scenePageInfo.speed) - 0.01;
+        } else if (idx === 2) {
+            pageInfo.speed = Number(e.target.value);
+        } else {
+            pageInfo.speed = Number(this.props.scenePageInfo.speed) + 0.01;
+        }
+        store.dispatch({
+            type: 'SET_SCENE_PAGE_INFO',
+            data: pageInfo,
+        })
+        pageInfo = null;
+    }
+    // 航向
+    shipRotation = (e, idx) => {
+        debugger
+        let pageInfo = this.props.scenePageInfo;
+        if (idx === 1) {
+            pageInfo.course = Number(this.props.scenePageInfo.course) + 1;
+            setShipRotation(this.props.scenePageInfo.course * Math.PI / 180)
+        } else if (idx === 2) {
+            pageInfo.course = Number(e.target.value);
+            setShipRotation(Number(e.target.value) * Math.PI / 180)
+        } else {
+            pageInfo.course = Number(this.props.scenePageInfo.course) - 1;
+            setShipRotation(this.props.scenePageInfo.course * Math.PI / 180)
+        }
+        store.dispatch({
+            type: 'SET_SCENE_PAGE_INFO',
+            data: pageInfo,
+        })
+    }
+    // 吃水
+    shipDraft = (e, idx) => {
+        let pageInfo = this.props.scenePageInfo;
+        if (idx === 1) {
+            pageInfo.draft = Number(this.props.scenePageInfo.draft) - 1;
+            console.log("pageInfo", pageInfo.draft)
+            store.dispatch({
+                type: 'SET_SCENE_PAGE_INFO',
+                data: pageInfo,
+            })
+            updateDraught(this.props.scenePageInfo.draft, this.props.scenePageInfo.tidemark)
+        } else if (idx === 2) {
+            // pageInfo.draft = Number(e.target.value);
+            pageInfo.draft = e.target.value;
+            store.dispatch({
+                type: 'SET_SCENE_PAGE_INFO',
+                data: pageInfo,
+            })
+            updateDraught(e.target.value, this.props.scenePageInfo.tidemark)
+        } else {
+            pageInfo.draft = Number(this.props.scenePageInfo.draft) + 1;
+            store.dispatch({
+                type: 'SET_SCENE_PAGE_INFO',
+                data: pageInfo,
+            })
+            updateDraught(this.props.scenePageInfo.draft, this.props.scenePageInfo.tidemark)
+        }
+    }
+    shipGps = (e, type) => {
+        if (e !== null) {
+            let pageInfo = this.props.scenePageInfo;
+            let val = e.target.value;
+            if (type === 'x') {
+                pageInfo.GPSX = val;
+            } else if (type === 'y') {
+                pageInfo.GPSY = val;
+            }
+            store.dispatch({
+                type: 'SET_SCENE_PAGE_INFO',
+                data: pageInfo,
+            })
+            let gps = {position: {x: Number((pageInfo.GPSX)), y: Number((pageInfo.GPSY))}}
+            setShipPosition(gps);
+        }
+    }
+
+    render() {
+        const {scenePageInfo} = this.props;
+        return (
+            <div className='tool-col'>
+                <ul>
+                    <li>
+                        <i/>
+                        <span>航速</span>
+                        <div className="editValue">
+                            <span onClick={(e) => this.shipSpeed(e, 1)}>-</span>
+                            <input value={scenePageInfo.speed.toFixed(3)} onChange={(e) => this.shipSpeed(e, 2)}/>
+                            <span onClick={(e) => this.shipSpeed(e, 3)}>+</span>
+                        </div>
+                    </li>
+                    <li>
+                        <i/>
+                        <span>航向</span>
+                        <div className="editValue">
+                            <span onClick={(e) => this.shipRotation(e, 1)}>-</span>
+                            <input value={-scenePageInfo.course} onChange={(e) => this.shipRotation(e, 2)}/>
+                            <span onClick={(e) => this.shipRotation(e, 3)}>+</span>
+                        </div>
+                    </li>
+                    <li>
+                        <i/>
+                        <span>船体吃水</span>
+                        <div className="editValue">
+                            <span onClick={(e) => this.shipDraft(e, 1)}>-</span>
+                            <input value={scenePageInfo.draft} onChange={(e) => this.shipDraft(e, 2)}/>
+                            <span onClick={(e) => this.shipDraft(e, 3)}>+</span>
+                        </div>
+                    </li>
+                    <li className='GPS'>
+                        <i/>
+                        <span>GPS</span>
+                        <span>(
+                          <input type="text" value={scenePageInfo.GPSX}
+                                 onChange={(e) => this.shipGps(e, 'x')}/>,
+                          <input value={scenePageInfo.GPSY}
+                                 onChange={(e) => this.shipGps(e, 'y')}/>
+                          )</span>
+                    </li>
+                </ul>
+            </div>
+        );
+    }
+
+}
+
+function mapStateToProps(state) {
+    return {
+        scenePageInfo: state.scenePageInfo
+    }
+}
+
+export default connect(mapStateToProps)(ToolCol1);

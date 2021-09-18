@@ -1,0 +1,108 @@
+import React, { Component } from 'react';
+
+import { message } from 'antd';
+class LimitSet extends Component {
+  constructor(props) {
+      super(props)
+      this.state = {
+          data: this.props.data
+      }
+  }
+  setShipParams = (index, e, type, str, typeInp) => {
+      let items = this.state.data;
+      if (e !== null) {
+          items.forEach(item => {
+              if (item.attrName === str) {
+                  if (typeInp === 'max' && (Number(e.target.value) < item['min'] + 1)) {
+                      message.warning('最大值不能小于最小值')
+                  } else if (typeInp === 'min' && (item['max'] < Number(e.target.value))) {
+                      message.warning('最小值不能大于最大值')
+                  } else {
+                      item[typeInp] = Number(e.target.value);
+                  }
+              }
+          });
+          this.setState({
+              data: items
+          })
+      } else if (type === 'reduce') {
+          console.log("typeInp", typeInp)
+          items.forEach(item => {
+              if (item.attrName === str) {
+                  if (typeInp === 'max' && (item['max'] < item['min'] + 1)) {
+                      message.warning('最大值不能小于最小值')
+                  } else {
+                      item[typeInp] = this.state.data[index - 1][typeInp] - 1;
+                  }
+              }
+          });
+          this.setState({
+              data: items
+          })
+      } else {
+          items.forEach(item => {
+              if (item.attrName === str) {
+                  if (typeInp === 'min' && (item['min'] + 1 > item['max'])) {
+                      message.warning('最小值不能大于最大值')
+                  } else {
+                      item[typeInp] = this.state.data[index - 1][typeInp] + 1;
+                  }
+              }
+          });
+          this.setState({
+              data: items
+          })
+      }
+  }
+  render() {
+      const { data } = this.props;
+      return (
+          <div>
+              <p>
+                  <span>分类</span>
+                  <span>限值</span>
+                  <span>最佳值</span>
+              </p>
+              <ul>
+                  {
+                      data.map((item, index) => (
+                          <li key={index}>
+                              <div className="goodRange">
+                                  <span>&nbsp;</span>
+                                  <div>
+                                      <span className="degree">{item.unit}</span>
+                                      <div className="editValue good">
+                                          <span onClick={(e) => this.setShipParams(item.id, null, 'reduce', item.attrName, 'good')}>-</span>
+                                          <input type="text" className="editInp" value={item.good} onChange={(e) => this.setShipParams(item.id, e, 'inp', item.attrName, 'good')} />
+                                          <span onClick={(e) => this.setShipParams(item.id, null, 'add', item.attrName, 'good')}>+</span>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div className="goodRange">
+                                  <span className="word">{item.val}</span>
+                                  <div>
+                                      <span className="degree">{item.unit}</span>
+                                      <div className="editValue max">
+                                          <span onClick={(e) => this.setShipParams(item.id, null, 'reduce', item.attrName, 'max')}>-</span>
+                                          <input type="text" className="editInp" value={item.max} onChange={(e) => this.setShipParams(item.id, e, 'inp', item.attrName, 'max')} />
+                                          <span onClick={(e) => this.setShipParams(item.id, null, 'add', item.attrName, 'max')}>+</span>
+                                      </div>
+
+                                      <span className="degree">-</span>
+                                      <div className="editValue min">
+                                          <span onClick={(e) => this.setShipParams(item.id, null, 'reduce', item.attrName, 'min')}>-</span>
+                                          <input className="editInp" type="text" value={item.min} onChange={(e) => this.setShipParams(item.id, e, 'inp', item.attrName, 'min')} />
+                                          <span onClick={(e) => this.setShipParams(item.id, null, 'add', item.attrName, 'min')}>+</span>
+                                      </div>
+                                  </div>
+                              </div>
+                          </li>
+                      ))
+                  }
+              </ul>
+          </div>
+      )
+  }
+}
+
+export default LimitSet;

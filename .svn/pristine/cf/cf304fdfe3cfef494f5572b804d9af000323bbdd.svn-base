@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>中交疏浚项目</title>
+  <script src="http://pv.sohu.com/cityjson?ie=utf-8"></script>
+</head>
+
+<body>
+  <noscript>You need to enable JavaScript to run this app.</noscript>
+  <div id="root"></div>
+  <script type="text/javascript">  
+  let roots = document.getElementById("root");
+  roots.setAttribute('ipAttr',returnCitySN["cip"]);
+</script>
+</body>
+
+</html>

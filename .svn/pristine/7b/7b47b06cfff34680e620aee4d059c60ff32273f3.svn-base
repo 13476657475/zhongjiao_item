@@ -1,0 +1,99 @@
+.tool-col {
+  float: left;
+  color: #fff;
+  &:nth-child(3) {
+      box-sizing: border-box;
+      display: flex;
+      div > i {
+          margin: 3px 8px 0 0px;
+          display: inline-block;
+          height: 16px;
+          width: 16px;
+          transform: translateY(2px);
+      }
+      .col-time-box{
+          float: left;
+          height: 64px;
+          line-height: 64px;
+          i {
+              background: url('../../../../assets/中交流浚2_17.jpg') no-repeat;
+              background-size: 100% 100%;
+          }
+      }
+      >img {
+          float: left;
+          content:url(../../../../assets/中交流浚2_19.jpg);
+          height: 18px;
+          margin: 20px 0  0  10px;
+      }
+      
+      .col-box {
+          // flex: 1;
+          img.col-btn{
+              margin: 0;
+          }
+          .start{
+              display: none;
+          }
+          color: #fff;
+          text-align: center;
+          
+          &:nth-child(1) {
+              width: 200px;
+              .span-title {
+                  float: left;
+                  line-height: 28px;
+                  display: block;
+              }
+              button{
+                  float: left;
+                  display: block;
+              }
+          }
+
+          &:nth-child(2) {
+              .col-btns{
+                  width: 84px;
+                  margin-right: 10px;
+                  background-color: #3b3f48;
+              }
+          }
+
+          .col-btns{
+              // display: flex;
+              border-radius: 4px;
+              margin: 0px;
+              width: 200px;
+              height: 28px;
+              line-height: 28px;
+              margin-top: 18px;
+              i {
+                  background: url('../../../../assets/中交流浚2_15.jpg') no-repeat;
+                  background-size: 100% 100%;
+              }
+              >span{
+                  margin-right: 10px;
+              }
+              .col-btn {
+                  border-radius: 4px;
+                  flex: 1;
+                  width: 28px;
+                  height: 28px;
+                  line-height: 28px;
+                  cursor: pointer;
+              }
+          }
+      }
+      .sysTemParams{
+          button{
+              width: 80px;
+              line-height: 28px;
+              padding: 0;
+              border: none;
+              border-radius: 4px;
+              background-color:  #3b3f48;
+          }
+      }
+      
+  }
+}

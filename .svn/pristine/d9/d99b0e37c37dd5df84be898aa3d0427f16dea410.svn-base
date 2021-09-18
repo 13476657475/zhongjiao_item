@@ -1,0 +1,36 @@
+.object-3d-view {
+    width: 100%;
+    height: 100%;
+    background-color: #74B8FC;
+    position: relative;
+
+    .float-wrap {
+        position: absolute;
+
+        &.left-float-wrap {
+            top: 15px;
+            left: 10px;
+        }
+
+        &.right-float-wrap {
+            top: 15px;
+            right: 10px;
+
+            >div.row {
+                background-color: #FBFCFC;
+                height: 28px;
+                line-height: 28px;
+
+                >.row-title {
+                    padding: 0 8px;
+                }
+
+                >.ant-input-number {
+                    width: 80px;
+                    margin-right: 10px;
+                }
+            }
+        }
+
+    }
+}

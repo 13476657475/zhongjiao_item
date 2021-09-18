@@ -1,0 +1,81 @@
+.tool-col {
+  float: left;
+  color: #fff;
+  &:nth-child(1) {
+      height: 34px;
+      line-height: 34px;
+      margin-top: 15px;
+      // padding-right: 10px;
+      border-right: 1px solid #888;
+      ul {
+          // width: 760px;
+          font-size: 13px;
+          color: #fff;
+          li{
+              height: 34px;
+              line-height: 34px;
+              margin-right: 10px;
+              overflow: hidden;
+
+              .title-name {
+                  font-size: 14px;
+                  color: #fff;
+                  margin-right: 30px;
+              }
+              #solumFileList{
+                  background-color: #000;
+                  color: #fff;
+                  border: none;
+              }
+              #statusSelect,
+              #depthFileList{
+                  background-color: #000;
+                  color: #fff;
+                  border: none;
+              }
+              display: inline-block;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              white-space: nowrap;
+
+              i {
+                  margin: 0 8px 0 10px;
+                  display: inline-block;
+                  height: 16px;
+                  width: 16px;
+                  transform: translateY(2px);
+              }
+
+              >span {
+                  margin-right: 10px;
+                  text-align: center;
+              }
+
+              &:nth-child(1) {
+                  i {
+                      background: url('../../../../assets/中交流浚2_21.jpg') no-repeat;
+                      background-size: 100% 100%;
+                  }
+              }
+              &:nth-child(2) {
+                  i {
+                      background: url('../../../../assets/中交流浚2_10.jpg') no-repeat;
+                      background-size: 100% 100%;
+                  }
+              }
+              &:nth-child(3) {
+                  i {
+                      background: url('../../../../assets/中交流浚2_15.jpg') no-repeat;
+                      background-size: 100% 100%;
+                  }
+              }
+              &:nth-child(4) {
+                  i {
+                      background: url('../../../../assets/中交流浚2_24.jpg') no-repeat;
+                      background-size: 100% 100%;
+                  }
+              }
+          }
+      }
+  }
+}

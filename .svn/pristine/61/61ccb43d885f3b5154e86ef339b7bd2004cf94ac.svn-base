@@ -1,0 +1,84 @@
+.tool-col {
+  float: left;
+  color: #fff;
+  &:nth-child(2) {
+      box-sizing: border-box;
+      display: flex;
+      padding-left: 10px;
+      height: 34px;
+      line-height: 34px;
+      border-right: 1px solid #888;
+      margin-top: 15px;
+      .col-box {
+          flex: 1;
+          display: flex;
+          color: #fff;
+          text-align: center;
+          .ship_transition{
+              margin: 0 10px 0 0;
+              height: 34px;
+              line-height: 34px;
+              button{
+                  margin: 0 6px;
+              }
+          }
+          &:nth-child(1) {
+              width: 640px;
+              .span-title {
+                  float: left;
+                  display: block;
+              }
+              button{
+                  float: left;
+                  margin-top: 9px;
+                  line-height: 34px;
+              }
+          }
+          .col-btns{
+              display: flex;
+              border-radius: 4px;
+              background-color: #3b3f48;
+              margin: 0 10px;
+              height: 28px;
+              line-height: 28px;
+              margin-top: 3px;
+              &:nth-child(3) {
+                  width: 270px;
+              }
+              &:nth-child(4) {
+                  padding-left: 10px;
+                  align-content: center;
+              }
+              .col-btn {
+                  border-radius: 4px;
+                  flex: 1;
+                  height: 28px;
+                  line-height: 28px;
+                  float: left;
+                  cursor: pointer;
+
+                  &.selected {
+                      background-color: #0090fa;
+                  }
+              }
+              img.col-btn{
+                  margin: 0 6px;
+              }
+              .start{
+                  display: none;
+              }
+          }
+      }
+      .sysTemParams{
+          button{
+              width: 80px;
+              line-height: 28px;
+              padding: 0;
+              border: none;
+              border-radius: 4px;
+              background-color:  #3b3f48;
+          }
+      }
+      
+  }
+}

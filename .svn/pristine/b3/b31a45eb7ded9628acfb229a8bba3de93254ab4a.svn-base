@@ -1,0 +1,225 @@
+import * as THREE from '../jsm/three.module.js';
+import { OrbitControls } from '../jsm/controls/OrbitControls.js';
+
+import { TWEEN } from '../jsm/libs/tween.module.min.js';
+
+import { initOtherRender, setWinAnimate, requestShipObject } from './setWindow';
+
+import { createWater } from './water';
+import { createLand } from '../land';
+import { createShip } from '../ship';
+
+import { leftAction, rightAction, actionArm } from '../ship/robotic-arm';
+
+let container;
+
+let scene, camera, renderer;
+let controls;
+
+let water, land, ship;
+
+let loadShipSucceed = false;
+
+let animationFrame;
+
+function init(mount) {
+
+    container = mount;
+
+    scene = new THREE.Scene();
+    camera = new THREE.PerspectiveCamera(70, container.clientWidth / container.clientHeight, 0.01, 10000);
+    renderer = new THREE.WebGLRenderer({ antialias: true });
+
+    scene.background = new THREE.Color(0x74B8FC);
+    renderer.setPixelRatio(window.devicePixelRatio);
+    renderer.setSize(container.clientWidth, container.clientHeight);
+    container.appendChild(renderer.domElement);
+
+    camera.position.set(19, 21, 86);
+
+    // camera.position.set(1.8, 0.4, 0);
+
+    controls = new OrbitControls(camera, renderer.domElement);
+    controls.update();
+    controls.autoRotate = true;
+
+    // camera.position.set(1.6475723926053618, 4.910916222011684, 15.163219382870354);
+    // controls.target.set(28.09066880841043, -9.041849489926435e-16, 8.01505743408982);
+    // controls.update();
+    // let axesHelper = new THREE.AxesHelper(5000);
+    // scene.add(axesHelper);
+
+    let dirL = new THREE.DirectionalLight(0xffffff, 3);
+    dirL.position.set(1, 1, 1)
+    scene.add(dirL);
+
+    let ambL = new THREE.AmbientLight(0xffffff, 1);
+    scene.add(ambL);
+
+    // 加载水
+    water = createWater();
+    scene.add(water);
+
+    // 加载地
+    land = createLand();
+    scene.add(land);
+
+    // 请求并添加船
+    ship = createShip(() => {
+        requestShipObject();
+        loadShipSucceed = true;
+    });
+    scene.add(ship);
+
+    window.out_scene = scene;
+    window.out_controls = controls;
+
+    enableScene();
+
+    initOtherRender();
+
+}
+
+function animate() {
+    animationFrame = requestAnimationFrame(animate);
+    water.material.uniforms['time'].value += 1.0 / 60.0; // 海水移动
+    TWEEN.update();
+    // water.visible = false;
+    renderer.render(scene, camera);
+    // water.visible = true;
+    if (loadShipSucceed) setWinAnimate();
+}
+
+function onWindowResize() {
+    camera.aspect = container.clientWidth / container.clientHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(container.clientWidth, container.clientHeight);
+}
+
+// 启用场景
+function enableScene() {
+    window.addEventListener('resize', onWindowResize, false);
+    animate();
+}
+
+function initScene(mount) {
+    if (!renderer) {
+        init(mount);
+        // fangxiashuangba(); // 释放双耙，循环开始
+    } else {
+        container = mount;
+        container.appendChild(renderer.domElement);
+        onWindowResize();
+        enableScene();
+    }
+}
+
+function stopScene(mount) {
+    if (animationFrame) cancelAnimationFrame(animationFrame);
+    if (renderer) {
+        window.removeEventListener('resize', onWindowResize, false);
+        // mount.removeEventListener('click', onMouseClick, false);
+    }
+}
+
+
+// 切换相机观察船的视角
+let view_way_state = 2;
+function cameraTracking() {
+    if ([1, 3].includes(view_way_state)) {
+        let v_c_t = camera.position.clone().sub(controls.target); // 相机到控制器的距离
+        controls.target.copy(ship.position); // 控制器的位置赋值 船对象的中心点位置
+        camera.position.copy(controls.target.clone().add(v_c_t)); // 再重新计算相机的位置
+        controls.update();
+    }
+}
+
+function switchTracking(val) {
+
+    switch (val) {
+        case 2:
+            // controls.enable = true; // 小马哥原本是让controls.enable的
+            controls.enablePan = true;
+            controls.autoRotate = false;
+            break;
+        case 1:
+            controls.enablePan = false;
+            controls.autoRotate = false;
+            break;
+        case 3:
+            controls.enablePan = false;
+            controls.autoRotate = true;
+            break;
+        default:
+            break;
+    };
+    view_way_state = val;
+}
+
+let inShip = false;
+function shipVisual(type) {
+
+    controls.target.copy(ship.position); // 控制器的位置赋值 船对象的中心点位置
+    if (type === 1) { // 舱内
+        camera.position.copy(controls.target.clone().add(new THREE.Vector3(1.8, 0.4, 0)));
+        inShip = true;
+    } else if (type === 2) { // 舱外
+        camera.position.copy(controls.target.clone().add(new THREE.Vector3(10, 8, 32)));
+        inShip = false;
+    }
+    controls.update();
+
+}
+
+function fangxiashuangba() {
+
+    setTimeout(() => {
+        leftAction('下降', () => { }, () => { });
+        rightAction('下降', () => { xuanzhuanshuangba() }, () => { });
+    }, 5000);
+}
+
+function xuanzhuanshuangba() {
+    let rad = Math.PI / 180;
+
+    setTimeout(() => {
+        actionArm('左', 1, 45 * rad);
+        actionArm('左', 2, -10 * rad);
+        actionArm('左', 3, -45 * rad);
+
+        actionArm('右', 1, 45 * rad);
+        actionArm('右', 2, -10 * rad);
+        actionArm('右', 3, -45 * rad);
+
+        setTimeout(() => {
+            shouqishuangba();
+        }, 8000);
+
+    }, 2000);
+}
+
+function shouqishuangba() {
+
+    setTimeout(() => {
+        leftAction('上升', () => { }, () => { });
+        rightAction('上升', () => { fangxiashuangba() }, () => { });
+    }, 2000);
+}
+
+setInterval(() => {
+    if (inShip) {
+        return
+    }
+    // ship.position.x -= 0.01;
+    // cameraTracking();
+}, 60);
+
+
+export {
+    scene,
+    initScene,
+    stopScene,
+    switchTracking,
+    cameraTracking,
+    shipVisual,
+};

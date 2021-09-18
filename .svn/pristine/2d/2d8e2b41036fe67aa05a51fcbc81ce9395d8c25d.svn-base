@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        body{
+            height: 100vh;
+        }
+        #main{
+            height: 100vh;
+        }
+        #content{
+            height: 100%;
+        }
+        #foot{
+            position: fixed;
+            height: 60px;
+            width: 100%;
+            line-height: 60px;
+            bottom: 0;
+            background-color: rgba(44, 48, 56, 0.6);
+            color: #fff;
+        }
+    </style>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+    <script type="text/javascript">
+    
+        
+        function addRequestData(name, nodeIDs, func) {
+            if(name=="visual"){
+                // 获取子页面传过来数据
+                let getData = nodeIDs;
+                // 发送数据
+                func(data);
+                // console.log(getData);
+            }
+        }     
+        /*
+        本JS为连接通讯用途，主要是AJAX提供连接中转函数，方便各个页面调用，
+        同时提供websocket公共对象，使所有页面调用这一个对象
+        */
+        var System = System || {};
+        //直接调用父窗口的连接进行使用
+        var _parent = window.opener || window.parent;
+        if (_parent && _parent != window && _parent.System && _parent.System.comm) {
+            System.comm = _parent.System.comm;
+        }
+        System.comm = System.comm || (function () {
+            /// <summary>
+            /// 系统连接
+            /// </summary>
+            /// <returns type=""></returns>
+            return {
+                //异步通信相关，配置和文件处理
+                ajax: (function () {
+                    /// <summary>
+                    /// 和通信相关
+                    /// </summary>
+
+                    var get = function (a, b, c) {
+                        /// <summary>
+                        /// 从指定对象中获取某一个数据，用于传输，将对所有值进行加码处理，从a对象中获取b属性，如果b存在，则返回b的c类型
+                        /// </summary>
+                        /// <param name="a" type="JSON">可以获取内容的对象JSON</param>
+                        /// <param name="b" type="String">要获取的内容属性的名称</param>
+                        /// <param name="c" type="String">要获取的内容的数据类型，字符串和数字可以留空，但布尔型传Boolean</param>
+                        /// <returns type=""></returns>
+                    }
+                })
+            }
+        })
+        System.info = {};
+        System.info.shipInfo = {};
+        System.info.userInfo = {};
+        System.info.userInfo.userId = 11;
+        System.info.shipInfo.id = 666;
+        System.info.nodes = {
+            'GPS1X坐标':10,'GPS1Y坐标':10,'GPS2X坐标':0,'GPS2Y坐标':0,
+            'GPS1安装位置X':10,'GPS1安装位置Y':10,'GPS2安装位置X':0,'GPS2安装位置Y':0,
+            '潮位':100,'罗经':10,'航速':10,'横倾':21,'纵倾':33,'是否抛泥':1,
+            '左耙深度':100,'右耙深度':100,'右耙上耙管长度':122,
+            '右耙下耙管长度':150,'左耙上耙管长度':140,'左耙下耙管长度':140,
+            '右耙上耙管水平角度':45,'右耙上耙管垂直角度':45,'右耙下耙管水平角度':33,
+            '右耙下耙管垂直角度':30,'左耙上耙管水平角度':40,'左耙上耙管垂直角度':45,
+            '左耙下耙管水平角度':45,'左耙下耙管垂直角度':45,'左吸口传感器吃水':3,
+            '右吸口传感器吃水':44,'左吸口传感器位置':66,'右吸口传感器位置':444,
+            '左耙吸口位置Z':100,'左耙吸口位置Y':100,'右耙吸口位置Z':90,
+            '右耙吸口位置Y':100,'左吸口到位':110,'右吸口到位':99,
+            '船体吃水':100,'左耙浓度':10,'右耙浓度':44,
+            '左耙流速':88,'右耙流速':30,'GPS数组':77,'GPS模式':88
+        }
+        System.comm.socket = {};
+        System.comm.socket.addRequestData = (function (flag,nodes,func) {
+            // [gpsX,pgsY,罗经]
+            let data = [
+            [
+                -800.28, 0, 0, 3,10, 10, 0, 0,2, 20, //9
+                10, 21, 33,1, 0, 0, 0, 0, 0, 0, //19
+                45, 45, 33, 30, 40, 45, 45, 45, 3, 2.9, //29
+                66, 444, 100, 100, 90, 100, 120, 99, 2, 8, //39
+                7.3, 8,8.3, 77, 88,1,1,1,1,1, //49
+                1,1,30,0,0,0,0,0,0,0,0]];
+                sendIndex = 0;
+                var test = setInterval(()=>{
+                    func(data[0]);
+                },1000)
+        })
+        function getXYZ(){            
+            var obj = document.getElementsByTagName("iframe")[0];
+            var iframeWin = obj.contentWindow;
+            iframeWin.notify3D([["11","22","33","44"],["52d8597d-022e-4a51-afce-226d63c0ac83","fd357f40-f560-4bb3-b0e3-1f8b64463a50","97813129-0dc2-4d05-bb11-8b6dbfa712c7","08e4fedc-857d-4426-b0c5-6490c8619baa"]],[["地质1","地质2"],["58dd1cfb-775d-4773-9c4d-4daa7f2cf4e4","a3255563-990d-476d-92a8-cfcc6277eba4"]]);
+        }
+        // 地质文件
+        System.display = {};
+        System.display.colorTable = {};
+        System.display.colorTable.colors = [
+            {small: -1000, big: 1, color: [1, 0, 0, 0]},
+            {small: 0, big: 0.25, color: [1, 0.09524, 0, 1]},
+            {small: 0.5, big: 0.75, color: [1, 0.19048, 0, 1]},
+            {small: 1, big: 1.25, color: [1, 0.28571, 0, 1]},
+            {small: 1.5, big: 1.75, color: [1, 0.38095, 0, 1]},
+            {small: 2, big: 2.25, color: [1, 0.47619, 0, 1]},
+            {small: 2.5, big: 2.75, color: [1, 0.57143, 0, 1]},
+            {small: 3, big: 3.25, color: [1, 0.66667, 0, 1]},
+            {small: 3.5, big: 3.75, color: [1, 0.7619, 0, 1]},
+            {small: 4, big: 4.25, color: [1, 0.85714, 0, 1]},
+            {small: 4.5, big: 4.75, color: [1, 0.95238, 0, 1]},
+            {small: 5, big: 5.25, color: [0.95238, 1, 0, 1]},
+            {small: 5.5, big: 5.75, color: [0.85714, 1, 0, 1]},
+            {small: 6, big: 6.25, color: [0.7619, 1, 0, 1]},
+            {small: 6.5, big: 6.75, color: [0.66667, 1, 0, 1]},
+            {small: 7, big: 7.25, color: [0.57143, 1, 0, 1]},
+            {small: 7.5, big: 7.75, color: [0.47619, 1, 0, 1]},
+            {small: 8, big: 8.25, color: [0.38095, 1, 0, 1]},
+            {small: 8.5, big: 8.75, color: [0.28571, 1, 0, 1]},
+            {small: 9, big: 9.25, color: [0.19048, 1, 0, 1]},
+            {small: 9.5, big: 9.75, color: [0.09524, 1, 0, 1]},
+            {small: 10, big: 10.25, color: [0, 1, 0, 1]},
+            {small: 10.5, big: 10.75, color: [0, 1, 0.09524, 1]},
+            {small: 11, big: 11.25, color: [0, 1, 0.19048, 1]},
+            {small: 11.5, big: 11.75, color: [0, 1, 0.28571, 1]},
+            {small: 12, big: 12.25, color: [0, 1, 0.38095, 1]},
+            {small: 12.5, big: 12.75, color: [0, 1, 0.47619, 1]},
+            {small: 13, big: 13.25, color: [0, 1, 0.57143, 1]},
+            {small: 13.5, big: 13.75, color: [0, 1, 0.66667, 1]},
+            {small: 14, big: 14.25, color: [0, 1, 0.7619, 1]},
+            {small: 14.5, big: 14.75, color: [0, 1, 0.85714, 1]},
+            {small: 15, big: 15.25, color: [0, 1, 0.95238, 1]},
+            {small: 15.5, big: 15.75, color: [0, 0.95238, 1, 1]},
+            {small: 16, big: 16.25, color: [0, 0.85714, 1, 1]},
+            {small: 16.5, big: 16.75, color: [0, 0.7619, 1, 1]},
+            {small: 17, big: 17.25, color: [0, 0.66667, 1, 1]},
+            {small: 17.5, big: 17.75, color: [0, 0.57143, 1, 1]},
+            {small: 18, big: 18.25, color: [0, 0.47619, 1, 1]},
+            {small: 18.5, big: 18.75, color: [0, 0.38095, 1, 1]},
+            {small: 19, big: 19.25, color: [0, 0.28571, 1, 1]},
+            {small: 19.5, big: 19.75, color: [0, 0.19048, 1, 1]},
+            {small: 20, big: 20.25, color: [0, 0.09524, 1, 1]},
+        ]
+        System.display.solumFiles = 
+        [
+            {
+                addRange:[],
+                data: [{
+                    "x": 0,
+                    "y": 0,
+                    "name": "ZK01",
+                    "layers": [{
+                        "minDepth": 0, "name": "水层", "maxDepth": 5, "id": "1", "color": [1, 1, 1, 1]
+                    }, { 
+                        "minDepth": 5, "name": "沙", "maxDepth": 8, "id": "2", "color": [0.654902, 0.9960784, 0.972549, 0.6039216] 
+                    }, { 
+                        "minDepth": 8, "name": "淤泥", "maxDepth": 14, "id": "3", "color": [0.6039216, 0.4901961, 0.145098, 0.9960784] 
+                    }, { 
+                        "minDepth": 14, "name": "硬泥", "maxDepth": 20, "id": "4", "color": [0.1372549, 0.1843137, 0.5294118, 0.5686275] 
+                    }, { 
+                        "minDepth": 20, "name": "石头", "maxDepth": 40, "id": "5", "color": [0.4862745, 0.07843138, 0.1372549, 0.8235294] 
+                    }]
+                }, { 
+                    "x": 10, 
+                    "y": 20, 
+                    "name": "ZK02", 
+                    "layers": [{ 
+                        "minDepth": 0, "name": "水层", "maxDepth": 1, "id": "1", "color": [1, 1, 1, 1] 
+                    }, { 
+                        "minDepth": 1, "name": "沙", "maxDepth": 5, "id": "2", "color": [0.654902, 0.9960784, 0.972549, 0.6039216] 
+                    }, { 
+                        "minDepth": 5, "name": "淤泥", "maxDepth": 20, "id": "3", "color": [0.6039216, 0.4901961, 0.145098, 0.9960784] 
+                    }, { 
+                        "minDepth": 20, "name": "硬泥", "maxDepth": 30, "id": "4", "color": [0.1372549, 0.1843137, 0.5294118, 0.5686275] 
+                    }, { 
+                        "minDepth": 30, "name": "石头", "maxDepth": 40, "id": "5", "color": [0.4862745, 0.07843138, 0.1372549, 0.8235294] 
+                    }] 
+                }],
+                "ext": ".SOL",
+                "fileName": "土层样例-副本.sol",
+                "guid": "079b904f-206b-4a91-afc7-df33192",
+                "id": "60f031ca-020d-4643-b836-e8c989fd",
+                "maxX": 60,
+                "maxY": 60,
+                "minX": -50,
+                "minY": -40,
+                "size": "0.00MB",
+                "time": "2020/05/28 09:38"
+            }
+        ];
+        // 水深文件
+        System.display.xyzFiles = [
+            {
+                addRange:[],
+                data:[[-505.07,629.78,5.33],[-502.02,627.64,5.34],[-499.73,626.12,5.61],[83.08,197.14,5.67],[86.7,195.04,5.9],[95.44,188.5,5.83],[96.37,187.41,5.96],[97.46,186.57,6.11],[102.83,183.23,5.96],[111.7,176.14,5.68],[112.79,175.48,5.86],[-515.34,636.59,5.15],[-510.1,632.21,5.48],[-507.84,631.34,5.51],[-503.57,627.73,5.99],[-501.22,626.18,5.3],[-499.39,625.33,5.54],[-493.47,619.98,5.18],[-485.08,614.44,5.62],[-483.02,612.94,5.09],[-482.5,612.52,5.15],[-476.2,608.3,5.84],[-474.71,606.56,5.53],[-474.11,606.13,5.52],[-472.71,605.81,5.76],[-471.19,604.26,5.14],[-469.07,602.32,5.56],[-466.3,600.22,5.81]],
+                "ext": ".SOL",
+                fileName:"水深样例 - 副本.sol",
+                guild:"hrsrgsbfst-asrha43-sdhwserb",
+                id:"2020hsrtgasrzsfdhsf",
+                maxX:686.99,
+                maxY:278.53,
+                minX:-336.12,
+                minY:-872.05,
+                size: "0.00MB",
+                time: "2020/05/28 09:38"
+            }
+        ];
+        // 保存数据
+        System.comm.ajax = {};
+        System.comm.ajax.saveConfig = (function( shipId, type, config ){
+            if(shipId === 666 && type === 13){
+                window.localStorage.setItem("shipSetting",config);
+            }
+        })
+        
+        System.comm.ajax.getConfig = (function( shipId, type, userId,func ){
+            if(shipId === 666 && type === 13 && userId === 11){
+                let result = {};
+                let data = window.localStorage.getItem("shipSetting");
+                let config = {};
+                result.status = "ok";
+                result.config = data;
+                func(result)
+            }
+        })
+
+        let datass = "[{\"x\":0,\"y\":0,\"name\":\"ZK01\",\"layers\":[{\"minDepth\":0,\"name\":\"水层\",\"maxDepth\":5,\"id\":\"1\",\"color\":[1,1,1,1]},{\"minDepth\":5,\"name\":\"沙\",\"maxDepth\":8,\"id\":\"2\",\"color\":[0.654902,0.9960784,0.972549,0.6039216]},{\"minDepth\":8,\"name\":\"淤泥\",\"maxDepth\":14,\"id\":\"3\",\"color\":[0.6039216,0.4901961,0.145098,0.9960784]},{\"minDepth\":14,\"name\":\"硬泥\",\"maxDepth\":20,\"id\":\"4\",\"color\":[0.1372549,0.1843137,0.5294118,0.5686275]},{\"minDepth\":20,\"name\":\"石头\",\"maxDepth\":40,\"id\":\"5\",\"color\":[0.4862745,0.07843138,0.1372549,0.8235294]}]},{\"x\":10,\"y\":20,\"name\":\"ZK02\",\"layers\":[{\"minDepth\":0,\"name\":\"水层\",\"maxDepth\":1,\"id\":\"1\",\"color\":[1,1,1,1]},{\"minDepth\":1,\"name\":\"沙\",\"maxDepth\":5,\"id\":\"2\",\"color\":[0.654902,0.9960784,0.972549,0.6039216]},{\"minDepth\":5,\"name\":\"淤泥\",\"maxDepth\":20,\"id\":\"3\",\"color\":[0.6039216,0.4901961,0.145098,0.9960784]},{\"minDepth\":20,\"name\":\"硬泥\",\"maxDepth\":30,\"id\":\"4\",\"color\":[0.1372549,0.1843137,0.5294118,0.5686275]},{\"minDepth\":30,\"name\":\"石头\",\"maxDepth\":40,\"id\":\"5\",\"color\":[0.4862745,0.07843138,0.1372549,0.8235294]}]}]\r\n"
+        console.log(JSON.parse(datass))
+    </script>
+    <div id="main">
+        <content>
+            <div id="content">
+                <iframe id="visual" name="visual" src="http://localhost:3000/" frameborder="0" scrolling="no" width="100%" height="100%"></iframe>
+            </div>
+        </content>
+        <script type="text/javascript">
+        
+        </script>
+    </div>
+</body>
+</html>

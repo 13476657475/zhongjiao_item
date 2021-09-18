@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="93c555c6-b61e-4124-9904-711789156203" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="JsFlowSettings">
+    <service-enabled>true</service-enabled>
+    <exe-path />
+    <other-services-enabled>true</other-services-enabled>
+    <auto-save>true</auto-save>
+  </component>
+  <component name="ProjectId" id="1rNU7WcwQmJAvDmZdSOKEoq6Afd" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="nodejs_package_manager_path" value="npm" />
+  </component>
+  <component name="RunManager">
+    <configuration name="start" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="start" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="npm.start" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration" cleanupOnStartRun="true">
+    <configuration>C:\Users\Administrator\AppData\Roaming\Subversion</configuration>
+    <supportedVersion>125</supportedVersion>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="93c555c6-b61e-4124-9904-711789156203" name="Default Changelist" comment="" />
+      <created>1618815873844</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1618815873844</updated>
+      <workItem from="1618815898414" duration="651000" />
+      <workItem from="1618818403507" duration="5254000" />
+      <workItem from="1618839687093" duration="206000" />
+      <workItem from="1619339097226" duration="271000" />
+      <workItem from="1619339591974" duration="668000" />
+      <workItem from="1619341330643" duration="13000" />
+      <workItem from="1619495470657" duration="15224000" />
+      <workItem from="1619575259246" duration="18918000" />
+      <workItem from="1619659940750" duration="104000" />
+      <workItem from="1619660131282" duration="7630000" />
+      <workItem from="1619677214649" duration="5236000" />
+      <workItem from="1619753893896" duration="294000" />
+      <workItem from="1619754546724" duration="7907000" />
+      <workItem from="1619768381493" duration="7978000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state width="1899" height="249" key="GridCell.Tab.0.bottom" timestamp="1619777665407">
+      <screen x="-1920" y="247" width="1920" height="1040" />
+    </state>
+    <state width="1899" height="249" key="GridCell.Tab.0.bottom/0.40.1920.1040/-1920.247.1920.1040@-1920.247.1920.1040" timestamp="1619777665407" />
+    <state width="1899" height="249" key="GridCell.Tab.0.center" timestamp="1619777665407">
+      <screen x="-1920" y="247" width="1920" height="1040" />
+    </state>
+    <state width="1899" height="249" key="GridCell.Tab.0.center/0.40.1920.1040/-1920.247.1920.1040@-1920.247.1920.1040" timestamp="1619777665407" />
+    <state width="1899" height="249" key="GridCell.Tab.0.left" timestamp="1619777665407">
+      <screen x="-1920" y="247" width="1920" height="1040" />
+    </state>
+    <state width="1899" height="249" key="GridCell.Tab.0.left/0.40.1920.1040/-1920.247.1920.1040@-1920.247.1920.1040" timestamp="1619777665407" />
+    <state width="1899" height="249" key="GridCell.Tab.0.right" timestamp="1619777665407">
+      <screen x="-1920" y="247" width="1920" height="1040" />
+    </state>
+    <state width="1899" height="249" key="GridCell.Tab.0.right/0.40.1920.1040/-1920.247.1920.1040@-1920.247.1920.1040" timestamp="1619777665407" />
+    <state x="-1382" y="452" width="1075" height="733" key="find.popup" timestamp="1619775833380">
+      <screen x="-1920" y="247" width="1920" height="1040" />
+    </state>
+    <state x="-1382" y="452" width="1075" height="733" key="find.popup/0.40.1920.1040/-1920.247.1920.1040@-1920.247.1920.1040" timestamp="1619775833380" />
+    <state x="-1304" y="364" key="run.anything.popup" timestamp="1619680623917">
+      <screen x="-1920" y="247" width="1920" height="1040" />
+    </state>
+    <state x="-1304" y="364" key="run.anything.popup/0.40.1920.1040/-1920.247.1920.1040@-1920.247.1920.1040" timestamp="1619680623917" />
+    <state x="-1297" y="472" width="672" height="678" key="search.everywhere.popup" timestamp="1619771049836">
+      <screen x="-1920" y="247" width="1920" height="1040" />
+    </state>
+    <state x="-1297" y="472" width="672" height="678" key="search.everywhere.popup/0.40.1920.1040/-1920.247.1920.1040@-1920.247.1920.1040" timestamp="1619771049836" />
+  </component>
+</project>

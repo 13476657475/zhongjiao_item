@@ -82,8 +82,9 @@ class SystemParams extends Component {
     }
     setShipParams = (index, e, type, str) => {
         console.log(index);
-        let items = JSON.parse(JSON.stringify(this.state.data));
-        // let items = this.state.data;
+        // let items = JSON.parse(JSON.stringify(this.state.data));
+        // console.log(items);
+        let items = this.state.data;
         if (1 <= index <= 13) {
             lineScaleRotation('左', '1')
             lineScaleRotation('左', '2')
@@ -268,8 +269,8 @@ class SystemParams extends Component {
             } else if(index >=5 && index <=13) {
                 debugger;
                 let attrName = str;
-                console.log(attrName)
-                console.log(this.state.tempData)
+                // console.log(attrName)
+                // console.log(this.state.tempData)
                 if (e !== null) {
                     let temp = e.target.value;
                     let valLength = temp.length;
@@ -303,7 +304,37 @@ class SystemParams extends Component {
                     console.log(newData)
                     this.setState({
                         tempData: newData
-                    })
+                    });
+                    switch(index) {
+                        case 7:
+                            items[6]["tubeDensity"] = newObj;
+                            this.setState({
+                                data: items
+                            });
+                            break;
+                        case 8:
+                                items[7]["pressWightPer"] = newObj;
+                                this.setState({
+                                    data: items
+                                });
+                            break;
+                        case 9:
+                            items[8]["mudUpDistance"] = newObj;
+                            console.log(items[8]["mudUpDistance"]);
+                            console.log(newData);
+                            this.setState({
+                                data: items
+                            });
+                            break;
+                        case 10:
+                                items[9]["draftSetVal"] = newObj;
+                                this.setState({
+                                    data: items
+                                });
+                                break;
+                        default:
+                            break;
+                    }
                 }else if(type === 'reduce'){
                     let val = this.state.tempData[attrName];
                     let newObj = val.toString().includes(".") ? (+this.state.tempData[attrName] - 1).toFixed(2) : +this.state.tempData[attrName] - 1;
@@ -312,7 +343,37 @@ class SystemParams extends Component {
                     console.log(newData)
                     this.setState({
                         tempData: newData
-                    })
+                    });
+                    switch(index) {
+                        case 7:
+                            items[6]["tubeDensity"] = newObj;
+                            this.setState({
+                                data: items
+                            });
+                            break;
+                        case 8:
+                                items[7]["pressWightPer"] = newObj;
+                                this.setState({
+                                    data: items
+                                });
+                                break;
+                        case 9:
+                            items[8]["mudUpDistance"] = newObj;
+                            console.log(items[8]["mudUpDistance"]);
+                            console.log(newData);
+                            this.setState({
+                                data: items
+                            });
+                            break;
+                            case 10:
+                                items[9]["draftSetVal"] = newObj;
+                                this.setState({
+                                    data: items
+                                });
+                                break;
+                        default:
+                            break;
+                    }
                 } else if(type === 'add'){
                     let val = this.state.tempData[attrName];
                     let newObj = val.toString().includes(".") ? (+this.state.tempData[attrName] + 1).toFixed(2) : +this.state.tempData[attrName] + 1;
@@ -321,7 +382,37 @@ class SystemParams extends Component {
                     console.log(newData)
                     this.setState({
                         tempData: newData
-                    })
+                    });
+                    switch(index) {
+                        case 7:
+                            items[6]["tubeDensity"] = newObj;
+                            this.setState({
+                                data: items
+                            });
+                            break;
+                        case 8:
+                                items[7]["pressWightPer"] = newObj;
+                                this.setState({
+                                    data: items
+                                });
+                                break;
+                        case 9:
+                            items[8]["mudUpDistance"] = newObj;
+                            console.log(items[8]["mudUpDistance"]);
+                            console.log(newData);
+                            this.setState({
+                                data: items
+                            });
+                            break;
+                        case 10:
+                                items[9]["draftSetVal"] = newObj;
+                                this.setState({
+                                    data: items
+                                });
+                                break;
+                        default:
+                            break;
+                    }
                 }
             } else {
                 let attrName = str.split(',');
@@ -515,9 +606,7 @@ class SystemParams extends Component {
         //     data = JSON.parse(tempData);
         // }else{
         data = this.state.data;
-        console.log(data)
         tempData = this.state.tempData;
-        console.log(tempData);
         // }
         // const { data } = this.state.data;
         const { solumFileName } = this.props;
@@ -751,7 +840,7 @@ class WindowWraps extends Component {
             tempLimitSet: [{ id: 1, good: 15, max: 30, min: 0, val: '上耙管垂直角度（范围，最佳值）', attrName: 'DragUpAngle', unit: '度' },
                 { id: 3, good: 45, max: 60, min: 30, val: '下耙管对地角度（范围，最佳值）', attrName: 'DragDownAngle', unit: '度' },
                 { id: 5, good: 10, max: 15, min: 5, val: '耙头活动罩角度（范围，最佳值）', attrName: 'RunAngle', unit: '度' },
-                // { id: 6, good: 30, max: 60, min: 0, val: '上下耙管安全夹角（范围，最佳值）', attrName: 'RunAngle1', unit: '度' },
+                { id: 6, good: 30, max: 60, min: 0, val: '上下耙管安全夹角（范围，最佳值）', attrName: 'RunAngle1', unit: '度' },
             ],
             outData: [
                 { id: 0, val: '左/右耙头对地角度', out: 40, range: '22.56-48.9', good: 1 },
@@ -767,7 +856,7 @@ class WindowWraps extends Component {
                 { val: '耙头对地角度计算得28.5度' },
                 { val: '耙头活动罩计算结果为33' }
             ],
-            selected_submenu: 1
+            selected_submenu: 1,
         };
     }
     alaProcess = () => {
@@ -914,6 +1003,8 @@ class WindowWraps extends Component {
         }
     }
     render() {
+        console.log(this.props);
+        console.log(this.state);
         const { monitorType, solumFileName, isClose, dragLength, freeChange, viewType, isViewClose } = this.props;
         const { selected_submenu } = this.state;
         let content;
@@ -960,7 +1051,7 @@ class WindowWraps extends Component {
                                     </div>
                                 </div>
                                 <div className="win_wrap_main">
-                                    {monitorType === 1 ? <RightWinWrapFree changeProce={this.closeProcss} LimitSet={this.state.LimitSet} data={this.state.RightWinWrapFree} /> : null}
+                                    {monitorType === 1 ? <RightWinWrapFree changeProce={this.closeProcss} LimitSet={this.state.LimitSet} systemParams={this.state.RightWinWrapSystemData} /> : null}
                                     {monitorType === 2 ? <RightWinWrapPairUp changeProce={this.closeProcss} LimitSet={this.state.LimitSet} system={dragLength} /> : null}
                                     {monitorType === 3 ?
                                         <>
@@ -969,7 +1060,6 @@ class WindowWraps extends Component {
                                         </>
                                         : null}
                                 </div>
-
                                 <div style={monitorType === 3 && monitorType === 4 && monitorType === 5 ? { 'display': 'none' } : { 'display': 'block' }} onClick={() => { this.alaProcess() }}>
                                     计算过程 &gt;&gt;
                                 </div>
@@ -1119,6 +1209,7 @@ class Scene extends Component {
 }
 
 function mapStateToProps(state) {
+    console.log(state);
     return {
         solumFileName: state.solumFileName,
         loadingWord: state.loadingWord,
@@ -1128,7 +1219,7 @@ function mapStateToProps(state) {
         dragLength: state.dragLength,
         freeChange: state.freeChange,
         viewType: state.viewType,
-        isViewClose: state.isViewClose
+        isViewClose: state.isViewClose,
     }
 }
 

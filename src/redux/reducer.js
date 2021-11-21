@@ -12,7 +12,6 @@ let initScenePageInfo = {
 
 // 设置场景页的信息
 function setScenePageInfo(state = initScenePageInfo, action) {
-
     switch (action.type) {
         case 'SET_SCENE_PAGE_INFO':
             return {
@@ -196,7 +195,7 @@ let dragLengths = {
     leftUpLength: 21.42488,
     rightUpLength: 21.42488,
     leftDownLength: 11.78558,
-    rightDownLength: 11.78558
+    rightDownLength: 11.78558,
 }
 function dragLength(state = dragLengths,action ){
     switch (action.type) {
@@ -332,5 +331,5 @@ export default combineReducers({
     viewType:viewType,
     scenePageCtrlInfo:scenePageCtrlInfo,
     isViewClose: isViewClose,
-    rotateDirection:rotateDirection
+    rotateDirection:rotateDirection,
 })

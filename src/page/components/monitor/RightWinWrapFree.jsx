@@ -13,6 +13,7 @@ import ReactDOM from "react-dom"
 class RightWinWrapFree extends Component {
     constructor(props) {
         super(props);
+        console.log(this.props)
         this.state = {
             isShow: false,
             isClose: 0,
@@ -29,7 +30,8 @@ class RightWinWrapFree extends Component {
             guidance: [],
             displayGuidance : [],
             limitData: this.props.LimitSet,
-            leftOrRight: "双耙"
+            leftOrRight: "双耙",
+            systemParam: this.props.systemParams,
         };
     }
 
@@ -362,8 +364,13 @@ class RightWinWrapFree extends Component {
     getOverallEvaluation() {
         let limitData = this.state.limitData;
         let items = this.state.data;
+        let systemParam = this.state.systemParam;
+        console.log("真正的系统参数");
+        console.log(systemParam)
         console.log(items);
-        console.log(this.state.displayData)
+        let scenePageInfo = this.props.scenePageInfo;
+        console.log("水深");
+        console.log(scenePageInfo);
         let arr = [];
         arr.push({id: 1, name: '耙臂角度/最佳角度【范围】', child: []})
         arr[0].child.push({
@@ -375,10 +382,6 @@ class RightWinWrapFree extends Component {
             verMin: limitData[0].min,
             verMax: limitData[0].max,
             onlyField: 1
-            // hor: items[3]['leftDragUpHorAngle'],
-            // horGood: limitData[1].good,
-            // horMin: limitData[1].min,
-            // horMax: limitData[1].max
         })
         arr[0].child.push({
             id: 2,
@@ -389,10 +392,6 @@ class RightWinWrapFree extends Component {
             verMin: limitData[0].min,
             verMax: limitData[0].max,
             onlyField: 1
-            // hor: items[5]['rightDragUpHorAngle'],
-            // horGood: limitData[1].good,
-            // horMin: limitData[1].min,
-            // horMax: limitData[1].max
         })
         arr[0].child.push({
             id: 3,
@@ -403,10 +402,6 @@ class RightWinWrapFree extends Component {
             verMin: limitData[2].min,
             verMax: limitData[2].max,
             onlyField: 1
-            // hor: items[9]['leftDragDownHorAngle'],
-            // horGood: limitData[3].good,
-            // horMin: limitData[3].min,
-            // horMax: limitData[3].max
         })
         arr[0].child.push({
             id: 4,
@@ -417,12 +412,7 @@ class RightWinWrapFree extends Component {
             verMin: limitData[2].min,
             verMax: limitData[2].max,
             onlyField: 1
-            // hor: items[11]['rightDragDownHorAngle'],
-            // horGood: limitData[3].good,
-            // horMin: limitData[3].min,
-            // horMax: limitData[3].max
         })
-        // arr.push({id: 2, name: '耙头活动罩角度/最佳角度【范围】', child: []})
         arr.push({id: 2, name: '耙管安全夹角/最佳角度【范围】', child: []});
         let left = ((+items[0]['leftDragUpAngle']) == 0 && (+items[6]['leftDragDownAngle']) == 0) ? 0 : 180 -(+items[0]['leftDragUpAngle']) + (+items[6]['leftDragDownAngle']);
         arr[1].child.push({
@@ -445,26 +435,49 @@ class RightWinWrapFree extends Component {
             verMin: limitData[5].min,
             verMax: limitData[5].max,
             onlyField: 2
-        })
-        // arr[1].child.push({
-        //     id: 1,
-        //     title: '下耙管',
-        //     key: '左',
-        //     vert: items[6]['leftDragDownAngle'] - items[12]['leftRunAngle'],
-        //     verGood: limitData[2].good - limitData[4].good,
-        //     verMin: limitData[2].min - limitData[4].min,
-        //     verMax: limitData[2].max - limitData[4].max
-        // })
-        // arr[1].child.push({
-        //     id: 3,
-        //     title: '下耙管',
-        //     key: '右',
-        //     vert: items[8]['rightDragDownAngle'] - items[14]['rightRunAngle'],
-        //     verGood: limitData[2].good - limitData[4].good,
-        //     verMin: limitData[2].min - limitData[4].min,
-        //     verMax: limitData[2].max - limitData[4].max
-        // })
-        console.log(this.state.leftOrRight)
+        });
+        arr.push({id: 3, name: '耙管深度值/最佳深度【范围】', child: []});
+        // 耙头距吸口垂直高度 = L0 * b1
+        // let height =  +  + settingVal.leftDownDragLength * 
+        console.log((+items[0]['leftDragUpAngle']) / (+items[3]['leftDragUpHorAngle']));
+        console.log(+systemParam[8].mudUpDistance)
+        let L0B1A1;
+        if((items[0]['leftDragUpAngle'] == 1 && +items[3]['leftDragUpHorAngle'] == 0) || (items[0]['leftDragUpAngle'] == 0 && +items[3]['leftDragUpHorAngle'] == 0))  {
+            L0B1A1 = 0
+        } else {
+            L0B1A1 = +systemParam[8].mudUpDistance * +items[0]['leftDragUpAngle'] / +items[3]['leftDragUpHorAngle'];
+        }
+        let L1B1 = +systemParam[0].leftUpDragLength * items[0]['leftDragUpAngle'];
+        let L2B2 = +systemParam[1].leftDownDragLength * items[6]['leftDragDownAngle'];
+        let HB2 = +systemParam[6].tubeDensity *  items[6]['leftDragDownAngle'];
+        console.log(L0B1A1);
+        console.log(L1B1);
+        console.log(L2B2);
+        console.log(HB2);
+        arr[2].child.push({
+            id: 1,
+            title: '耙管',
+            key: '左',
+            vert: 0,
+            verGood: limitData[5].good,
+            verMin: limitData[5].min,
+            verMax: limitData[5].max,
+            onlyField: 3
+        });
+        arr[2].child.push({
+            id: 2,
+            title: '耙管',
+            key: '右',
+            vert: 0,
+            verGood: limitData[5].good,
+            verMin: limitData[5].min,
+            verMax: limitData[5].max,
+            onlyField: 3
+        });
+        
+    //     console.log(limitData);
+    //     console.log("系统参数");
+    //    console.log(settingVal);
         let copyArr = JSON.parse(JSON.stringify(arr));
         let appraise = [];
         if(this.state.leftOrRight == "左耙" || this.state.leftOrRight == "右耙") {
@@ -741,16 +754,24 @@ class RightWinWrapFree extends Component {
                                                             {
                                                                ite.onlyField == 2 ? <span>安全夹角:{ite.vert}</span> : null
                                                             }
-                                                            <span>最佳值:{ite.verGood}</span>
-                                                            <span>范围:[{ite.verMin}-{ite.verMax}]</span>
+                                                            {
+                                                               ite.onlyField == 3 ? <span>深度:{ite.vert}</span> : null
+                                                            }
+                                                            {
+                                                                ite.onlyField === 3 ? null : 
+                                                                <>
+                                                                <span>最佳值:{ite.verGood}</span>
+                                                                <span>范围:[{ite.verMin}-{ite.verMax}]</span>
+                                                                </>
+                                                            }
                                                         </div>
-                                                        {
+                                                        {/* {
                                                             ite.hor === undefined ? null : <div>
                                                                 <span>水平角度:{ite.hor}</span>
                                                                 <span>最佳值:{ite.horGood}</span>
                                                                 <span>范围:[{ite.horMin}-{ite.horMax}]</span>
                                                             </div>
-                                                        }
+                                                        } */}
 
                                                     </div>
                                                 </li>
@@ -771,8 +792,13 @@ class RightWinWrapFree extends Component {
                                     <p style={{'textAlign': 'center'}}>均在合理范围内</p>
                                 </> :
                                 this.state.displayGuidance.map((item, index) => (
-                                    <li key={item.id}>
-                                        {item.id}、{item.name}
+                                    
+                                    <li key={item.id}>         
+                                        {item.id === 3 ? null : 
+                                            <>
+                                            {item.id}、{item.name}
+                                            </>
+                                        }
                                         {
                                             item.which ?
                                                 <>
@@ -797,8 +823,7 @@ class RightWinWrapFree extends Component {
                                                                         </ul>
 
                                                                     }
-
-                                                                    {
+                                                                    {/* {
                                                                         ite.horNice ? null : <>
                                                                             <ul key={ite.id}>
                                                                                 <li>
@@ -806,7 +831,7 @@ class RightWinWrapFree extends Component {
                                                                                 </li>
                                                                             </ul>
                                                                         </>
-                                                                    }
+                                                                    } */}
                                                                 </>
                                                             ))
                                                     }
@@ -830,11 +855,14 @@ class RightWinWrapFree extends Component {
                                                                         </ul>
                                                                     }
                                                                 </>
-                                                            ))
+                                                            )
+                                                        )
                                                     }
                                                 </>
                                         }
+                                    
                                     </li>
+                                    
                                 ))
                         }
                     </ul>
@@ -845,8 +873,10 @@ class RightWinWrapFree extends Component {
 }
 
 function mapStateToProps(state) {
+    console.log(state);
     return {
-        freeData: state.freeData
+        freeData: state.freeData,
+        scenePageInfo: state.scenePageInfo
     }
 }
 
